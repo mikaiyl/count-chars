@@ -29,10 +29,11 @@ function countLetters(text) {
     return letterCounts;
 }
 
-function printLetters(letterArray) {
-    for(letter in letterArray) {
+function printLetters(letterObj) {
+    let letterArray = obj2array(letterObj);
+    for(letter of letterArray.sort()) {
         let span = document.createElement("span");
-        let textContent = document.createTextNode('"' + letter + "\": " + letterArray[letter] + ", ");
+        let textContent = document.createTextNode('"' + letter[1] + "\": " + letter[0] + ", ");
         span.appendChild(textContent);
         document.getElementById("lettersDiv").appendChild(span);
     }
@@ -62,11 +63,22 @@ function countWords(words) {
     return wordCounts;
 }
 
-function printWords(wordArray) {
-    wordArray = wordArray.values().sort();
-    for(word in wordArray) {
+function obj2array(obj) {
+    let values = Object.values(obj);
+    let keys = Object.keys(obj);
+    let arr = new Array();
+    for ( let i = 0; i < values.length; i++ ){
+        let j = [ keys[i], values[i] ];
+        arr.push(j);
+    }
+    return arr;
+}
+
+function printWords(wordObj) {
+    let wordArray = obj2array(wordObj);
+    for( let word of wordArray.sort()) {
         let span = document.createElement("span");
-        let textContent = document.createTextNode('"' + word + "\": " + wordArray[word] + ", ");
+        let textContent = document.createTextNode('"' + word[1] + "\": " + word[0] + ", ");
         span.appendChild(textContent);
         document.getElementById("wordsDiv").appendChild(span);
     }
